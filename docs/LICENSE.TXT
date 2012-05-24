@@ -1,0 +1,27 @@
+The myTricks is a copyrighted work and cannot be used legally without
+a software license. In order to make this  project usable to a vast
+majority of developers, I distribute it under two mutually exclusive
+open-source licenses, like the FreeType Project.
+
+This means that *you* must choose *one* of the two licenses described
+below, then obey  all its terms and conditions when using myTricks in
+any of your projects or products.
+
+  - The myTricks License, found in the file 'MTL.TXT', which is actually
+    a 3-clause BSD license *with* an advertising clause that forces
+    you to explicitly cite the myTricks project in your product's
+    DOCUMENTATION. All details are in the license file. This license
+    is suited to products which don't use the GNU General Public
+    License.
+
+    Note that this license is compatible with the GNU General Public
+    License (GNU GPL) v3.
+
+  - The GNU General Public License version 2 (GNU GPLv2), found in
+    'GPLv2.TXT' (or ANY LATER version can be used too), for programs
+    which already use the GPL.
+
+    Note that the GPLv2 is INcompatible with the GPLv3.
+
+
+--- end of LICENSE.TXT ---

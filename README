@@ -1,0 +1,49 @@
+myTricks
+========
+
+These are the release notes for myTricks. Read them carefully,
+as they tell you what this is all about, explain how to use it,
+and what to do if something goes unexpectedly.
+
+WHAT is myTricks?
+
+  myTricks is a POWERFUL C++ Template Lib, written by ballypc for fun.
+  It aims towards......I haven't decided yet.
+
+  It implements type-free class for vector algebra, but without matrices
+  operations so far, for it's NOT a clone of BLAS.
+
+  It is distributed under the myTricks License, a 3-clause BSD-like
+  license - see the accompanying docs/LICENSE file for more details.
+
+  ENJOY IT!
+
+PLATFORM AND REQUIREMENTS
+
+  Currently, none Platform-depended API is called.
+  Only standard C++ runtime lib required.
+
+DOCUMENTATION
+
+  Nothing so far.(I am lazy)
+
+USING the lib:
+
+ - NO pre-building required.
+
+ - you MUST develop in C++.
+
+ - Just include its hpps:
+
+     #include "myTricks/xxx/yyy.hpp"
+
+ - For convenience, you can use its namespace:
+     using myTricks::xxx::yyy;
+
+CONFIGURING the lib:
+
+  Nothing so far.(I am lazy)
+
+IF SOMETHING GOES UNEXPECTEDLY:
+
+  You can Fix/Improve it youselves, then tell me if you want.
