@@ -35,7 +35,7 @@ public:
         ;   // no-op
     }
 
-    explicit Point (const _Vct& vct) : pos(vct)      // Constructor
+    explicit Point (const _Vct& vct) : pos(vct)     // Constructor
     {
         ;   // no-op
     }
@@ -47,9 +47,9 @@ public:
     }
 
     // Assignment Operator
-    _Point& operator= (const _Point& v)
+    _Point& operator= (const _Point& p)
     {
-        if (&v != this) this->pos = v.pos;
+        if (&p != this) this->pos = p.pos;
         return *this;
     }
 
@@ -61,10 +61,16 @@ public:
         return;
     }
 
+
     _Point& operator+= (const _Vct& vct)
     {
-        /*if (&vct != this->pos) */this->pos += vct;
+        this->pos += vct;
         return *this;
+    }
+
+    _Point& translate (const _Vct& vct)
+    {
+        return this->operator+=(vct);
     }
 
     _Point operator+ (const _Vct& vct) const
@@ -74,7 +80,7 @@ public:
 
     _Point& operator-= (const _Vct& vct)
     {
-        this->pos -= vct;
+        /*if (&vct != &this->pos) */this->pos -= vct;
         return *this;
     }
 
@@ -93,10 +99,12 @@ public:
         return this->pos - p.pos;
     }
 
+
 protected:
     _Vct pos;                   // Data Member
 
-}; // class Point<Number, n[, Vct]>
+
+}; // class Point<Number, n[, _Vct]>
 
 } // namespace math
 

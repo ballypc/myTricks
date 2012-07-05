@@ -26,18 +26,24 @@ public:
     typedef Point<Number, 3, Vector3<Number> > _P3Base;
     typedef Point3<Number> _Point3;
 
+    typedef Vector3<Number> _Vector3;
+
     Point3 (void) : _P3Base()                   // Default Constructor
     {
         ;   // no-op
     }
 
-    Point3 (Number xv, Number yv, Number zv) : _P3Base(Vector3<Number>(xv,yv,zv))    // 构造函数
+    Point3 (Number xv, Number yv, Number zv) : _P3Base(_Vector3(xv,yv,zv))    // 构造函数
     {
         ;   // no-op
     }
 
-
     Point3 (const Number* ptr) : _P3Base(ptr)   // Constructor
+    {
+        ;   // no-op
+    }
+
+    explicit Point3 (const _Vector3& vct) : _P3Base(vct)     // Constructor
     {
         ;   // no-op
     }
@@ -63,11 +69,13 @@ public:
     Number z(void) const {return this->_P3Base::pos.z();}       // get
 //    Number& z(void) {return this->zval;}
     const Number *xyz(void) const {return this->_P3Base::pos.xyz();}    // get_ptr
+
 /*
 protected:
-    LinearVector<Number, n> pos;               // Data Member
+    _Vector3 pos;               // Data Member
 */
-}; // class Point<Number>
+
+}; // class Point3<Number>
 
 } // namespace math
 

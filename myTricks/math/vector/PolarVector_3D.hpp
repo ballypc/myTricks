@@ -31,14 +31,15 @@ namespace math {
 template<typename Number>
 class PolarVector3 : public PolarVector<Number, 3> {
 public:
-#define rval PolarVector<Number, 3>::array[0]
-#define phival PolarVector<Number, 3>::array[1]
-#define thetaval PolarVector<Number, 3>::array[2]
-#define rphithetaptr PolarVector<Number, 3>::array
-
-//    typedef LinearVector<Number, len> _LinearVector;
     typedef PolarVector<Number, 3> _PolarVector3Base;
     typedef PolarVector3<Number> _PolarVector3;
+
+#define rphithetaptr PolarVector<Number, 3>::array
+#define rval rphithetaptr[0]
+#define phival rphithetaptr[1]
+#define thetaval rphithetaptr[2]
+
+    typedef Vector3<Number> _Vector3;
 
 // 基本功能
     PolarVector3 (void) : _PolarVector3Base()       // 默认构造函数 xval = yval = zval = 0
@@ -58,6 +59,18 @@ public:
         ;   // no-op
     }
 
+    explicit PolarVector3 (const _Vector3& v) : _PolarVector3Base()
+    {
+        this->rval = v.length();
+        if (this->rval >= EPSILON) {
+            this->phival = Number(FUNC_ATAN2(v.y(), v.x()));
+            this->thetaval = Number(FUNC_ASIN(v.z() / this->rval));
+        } else {
+            this->phival =
+            this->thetaval = Number(0.0);
+        }
+    }
+
     // 复制构造函数
     PolarVector3 (const _PolarVector3Base& v) : _PolarVector3Base(v)
     {
@@ -69,20 +82,7 @@ public:
     {
         ;   // no-op
     }
-*/
-    explicit PolarVector3 (const Vector3<Number>& v) : _PolarVector3Base()
-    {
-        this->rval = v.length();
-        if (this->rval >= EPSILON) {
-            this->phival = Number(FUNC_ATAN2(v.y(), v.x()));
-            this->thetaval = Number(FUNC_ASIN(v.z() / this->rval));
-        } else {
-            this->phival =
-            this->thetaval = Number(0.0);
-        }
 
-    }
-/*
     // 重载赋值运算符
     _PolarVector3& operator= (const _PolarVector3& v)
     {
@@ -108,8 +108,7 @@ public:
     {
         if (fabs(value) >= EPSILON) {
             this->rval /= value;
-        }
-        else {
+        } else {
             ;   // divided by zvalero!
         }
         return *this;
@@ -123,16 +122,14 @@ public:
 /********************************/
 /*
 // 双线性关系
-    Number dot (const Vector3& v) const         // dot product
+    Number dot (const _PolarVector3& v) const           // dot product
     {
-        return this->dotProduct(v);
-    };
+        ;
+    }
 
-    Vector3 cross (const Vector3& v) const      // 矢积
+    _PolarVector3 cross (const _PolarVector3& v) const  // 矢积
     {
-        return Vector3 (this->yval * v.zval - this->zval * v.yval,
-                        this->zval * v.xval - this->xval * v.zval,
-                        this->xval * v.yval - this->yval * v.xval );
+        ;
     }*/
 /********************************/
 
@@ -140,14 +137,14 @@ public:
     Number length (void) const                  // 返回长度
     {
         return this->rval;
-    };
+    }
 
     Number lengthSquared (void) const           // 返回长度的平方
     {
         return this->rval * this->rval;
-    };
+    }
 
-    _PolarVector3& unitizvale (void)            // 归一化
+    _PolarVector3& unitize (void)               // 归一化
     {
         if (this->rval < EPSILON) {
             ;   // no-op
@@ -158,13 +155,15 @@ public:
 
     _PolarVector3 unit (void) const             // 返回单位向量
     {
-        return PolarVector3(*this).unitizvale();
+        return PolarVector3(*this).unitize();
     }
+/********************************/
 
-#undef rval
-#undef phival
 #undef thetaval
+#undef phival
+#undef rval
 #undef rphithetaptr
+
 
 }; // class PolarVector3<Number>
 

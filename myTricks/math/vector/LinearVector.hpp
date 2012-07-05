@@ -130,6 +130,11 @@ public:
         return LinearVector(*this) *= value;
     }
 
+    friend _LinearVector operator* (Number value, const _LinearVector& v)
+    {
+        return LinearVector(v) *= value;
+    }
+
 /********************************\
     _LinearVector& operator/= (Number value)
     {
@@ -165,7 +170,7 @@ public:
         return _LinearVector(*this).scale(v);
     }
 
-    Number dotProduct (const _LinearVector& v) const
+    Number innerProduct (const _LinearVector& v) const
     {
         Number r(0);
         for (unsigned int i = 0; i < len; ++i) {
@@ -177,6 +182,7 @@ public:
 
 protected:
     Number  array[len];             // Data Member
+
 
 }; // class LinearVector<Number, len>
 

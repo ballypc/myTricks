@@ -25,7 +25,7 @@ public:
 
     virtual ~Motion() {}
 
-    // 初始时设置为0
+    // 初始时设置加速度为0
     void init(void)
     {
         acc.setZero();

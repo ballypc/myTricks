@@ -105,8 +105,10 @@ public:
         return PolarVector(*this) *= value;
     }
 
+
 protected:
     Number  array[n];               // Data Member
+
 
 }; // class PolarVector<Number, n>
 

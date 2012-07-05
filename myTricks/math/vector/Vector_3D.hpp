@@ -29,13 +29,13 @@ namespace math {
 template<typename Number>
 class Vector3 : public LinearVector<Number, 3> {
 public:
-#define xval LinearVector<Number, 3>::array[0]
-#define yval LinearVector<Number, 3>::array[1]
-#define zval LinearVector<Number, 3>::array[2]
-#define xyzptr LinearVector<Number, 3>::array
-
     typedef LinearVector<Number, 3> _LinearVector3;
     typedef Vector3<Number> _Vector3;
+
+#define xyzptr  _LinearVector3::array
+#define xval    xyzptr[0]
+#define yval    xyzptr[1]
+#define zval    xyzptr[2]
 
 // 基本功能
     Vector3 (void) : _LinearVector3()   // 默认构造函数 xval = yval = zval = 0
@@ -132,7 +132,55 @@ public:
     {
         return Vector3(*this) *= value;
     }
+
+    friend _Vector3 operator* (Number value, const _Vector3& v)
+    {
+        return Vector3(v) *= value;
+    }
 */
+    _Vector3& operator+= (const _LinearVector3& v)
+    {
+        this->_LinearVector3::operator+=(v);
+        return *this;
+    }
+
+    _Vector3 operator+ (const _LinearVector3& v) const  // 加
+    {
+        return Vector3(*this) += v;
+    }
+
+    _Vector3& operator-= (const _LinearVector3& v)
+    {
+        this->_LinearVector3::operator-=(v);
+        return *this;
+    }
+
+    _Vector3 operator- (const _LinearVector3& v) const  // 减
+    {
+        return Vector3(*this) -= v;
+    }
+
+    _Vector3 operator- (void) const
+    {
+        return Vector3(-xval, -yval, -zval);
+    }
+
+    _Vector3& operator*= (Number value)
+    {
+        this->_LinearVector3::operator*=(value);
+        return *this;
+    }
+
+    _Vector3 operator* (Number value) const     // 数乘
+    {
+        return Vector3(*this) *= value;
+    }
+
+    friend _Vector3 operator* (Number value, const _Vector3& v)
+    {
+        return Vector3(v) *= value;
+    }
+
     _Vector3& operator/= (Number value)
     {
         if (fabs(value) >= EPSILON) {
@@ -140,7 +188,7 @@ public:
             this->yval /= value;
             this->zval /= value;
         } else {
-            ;   // divided by zvalero!
+            ;   // divided by zero!
         }
         return *this;
     }
@@ -155,12 +203,12 @@ public:
 // 双线性关系
     Number dot (const _Vector3& v) const        // dot product
     {
-        return this->dotProduct(v);
-    };
+        return this->innerProduct(v);
+    }
 
-    _Vector3 cross (const _Vector3& v) const     // 矢积
+    _Vector3 cross (const _Vector3& v) const    // 矢积
     {
-        return Vector3 (this->yval * v.zval - this->zval * v.yval,
+        return Vector3( this->yval * v.zval - this->zval * v.yval,
                         this->zval * v.xval - this->xval * v.zval,
                         this->xval * v.yval - this->yval * v.xval );
     }
@@ -170,14 +218,14 @@ public:
     Number lengthSquared (void) const           // 返回长度的平方
     {
         return this->dot(*this);
-    };
+    }
 
     Number length (void) const                  // 返回长度
     {
         return Number(FUNC_SQRT(this->lengthSquared()));
-    };
+    }
 
-    _Vector3& unitizvale (void)                 // 归一化
+    _Vector3& unitize (void)                    // 归一化
     {
         Number length = this->length();
 
@@ -195,16 +243,17 @@ public:
 
     _Vector3 unit (void) const                  // 返回单位向量
     {
-        return Vector3(*this).unitizvale();
+        return Vector3(*this).unitize();
     }
 /********************************/
-#undef xval
-#undef yval
+
 #undef zval
+#undef yval
+#undef xval
 #undef xyzptr
 
 /*
-private:
+protected:
     union {
         struct {
             Number xval, yval, zval;
