@@ -16,10 +16,12 @@ class Object {
 * the Base of Everything!
 \**********************************/
 protected:
-    Object(void) {}
-    virtual ~Object() {}
+    Object (void) {}
+    virtual ~Object () {}
+
 
 }; // class Object
+
 
 class BasicObj : public Object {
 /**********************************\
@@ -29,13 +31,16 @@ class BasicObj : public Object {
 * so, NO position info included.
 \**********************************/
 protected:
-    BasicObj(int type) : typeID(type) {}
-    virtual ~BasicObj() {}
+    BasicObj (int type) : typeID(type) {}
+    virtual ~BasicObj () {}
 
     int typeID;
 
+
 }; // class BasicObj
+
 typedef BasicObj LandscapeType;
+
 
 class AdvanceObj : public Object {
 /**********************************\
@@ -44,8 +49,9 @@ class AdvanceObj : public Object {
 * Just for Pointers.
 \**********************************/
 protected:
-    AdvanceObj(void) {}
-    virtual ~AdvanceObj() {}
+    AdvanceObj (void) {}
+    virtual ~AdvanceObj () {}
+
 
 }; // class AdvanceObj
 

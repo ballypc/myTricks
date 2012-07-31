@@ -24,17 +24,25 @@ class PositionObj : public AdvanceObj {
 * Virtual Class, CANNOT be instantiated.
 * with Position
 \**********************************/
+
+    typedef math::Point<Number, 3>  _Point3Base;
+    typedef math::Point3<Number>    _Point3;
+
 public:
-    typedef math::Point3<Number> _Point3;
-    const _Point3& GETposition() {return this->position;}
+    typedef Number  value_type;
+
+    const _Point3& position (void) const {return this->positionVal;}
+
 
 protected:
-    explicit PositionObj(const _Point3& pos) : position(pos) {}
-    virtual ~PositionObj() {}
+    explicit PositionObj (const _Point3Base& pos) : positionVal(pos) {}
+    virtual ~PositionObj () {}
 
-    _Point3 position;
+    _Point3 positionVal;
+
 
 }; // class PositionObj<Number>
+
 
 template<typename Number>
 class MovableObj : public PositionObj<Number> {
@@ -43,16 +51,24 @@ class MovableObj : public PositionObj<Number> {
 * with Motion
 * can be Derived into Actor\Camera\Weather
 \**********************************/
+
+    typedef PositionObj<Number> _Base;
+
+    typedef math::Point<Number, 3>  _Point3Base;
+    typedef math::Point3<Number>    _Point3;
+    typedef math::LinearVector<Number, 3>   _LinearVector3Base;
+    typedef math::LinearVector3<Number>     _LinearVector3;
+
 public:
-    typedef math::Point3<Number> _Point3;
-    typedef math::Vector3<Number> _Vector3;
+    typedef Number  value_type;
 
 protected:
-    explicit MovableObj(const _Point3& pos) : PositionObj<Number>/*::PositionObj*/(pos), motion(0) {}
-    MovableObj(const _Point3& pos, const _Vector3& vel) : PositionObj<Number>/*::PositionObj*/(pos), motion(vel) {}
-    virtual ~MovableObj() {}
+    explicit MovableObj (const _Point3Base& pos) : _Base(pos), motion() {}
+    MovableObj (const _Point3Base& pos, const _LinearVector3Base& vel) : _Base(pos), motion(vel) {}
+    virtual ~MovableObj () {}
 
-    phys::Motion3<Number> motion;
+    phys::Motion<Number, 3> motion;
+
 
 }; // class MovableObj<Number>
 

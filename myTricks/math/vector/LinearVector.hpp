@@ -27,8 +27,11 @@ class LinearVector {
 * Linear Vector
 * Number could be int, float, double or sth...
 \**********************************/
+
+    typedef LinearVector<Number, len>   _LinearVector;
+
 public:
-    typedef LinearVector<Number, len> _LinearVector;
+    typedef Number  value_type;
 
     LinearVector (void)                 // Default Constructor
     {
@@ -47,7 +50,7 @@ public:
     }
 
     // Copy Constructor
-    LinearVector (const _LinearVector& v)
+    LinearVector (const LinearVector& v)
     {
         for (unsigned int i = 0; i < len; ++i) {
             this->array[i] = v.array[i];
@@ -55,7 +58,7 @@ public:
     }
 
     // Assignment Operator
-    _LinearVector& operator= (const _LinearVector& v)
+    LinearVector& operator= (const LinearVector& v)
     {
         if (&v != this) {
             for (unsigned int i = 0; i < len; ++i) {
@@ -65,7 +68,7 @@ public:
         return *this;
     }
 
-    virtual ~LinearVector () {}
+    /*!virtual */~LinearVector () {}
 
     void setZero (void)
     {
@@ -86,7 +89,7 @@ public:
         return r;
     }
 
-    _LinearVector& operator+= (const _LinearVector& v)
+    LinearVector& operator+= (const LinearVector& v)
     {
         for (unsigned int i = 0; i < len; ++i) {
             this->array[i] += v.array[i];
@@ -94,12 +97,12 @@ public:
         return *this;
     }
 
-    _LinearVector operator+ (const _LinearVector& v) const
+    const LinearVector operator+ (const LinearVector& v) const
     {
         return LinearVector(*this) += v;
     }
 
-    _LinearVector& operator-= (const _LinearVector& v)
+    LinearVector& operator-= (const LinearVector& v)
     {
         for (unsigned int i = 0; i < len; ++i) {
             this->array[i] -= v.array[i];
@@ -107,17 +110,17 @@ public:
         return *this;
     }
 
-    _LinearVector operator- (const _LinearVector& v) const
+    const LinearVector operator- (const LinearVector& v) const
     {
         return LinearVector(*this) -= v;
     }
 
-    _LinearVector operator- (void) const
+    const LinearVector operator- (void) const
     {
         return LinearVector() - *this;
     }
 
-    _LinearVector& operator*= (Number value)
+    LinearVector& operator*= (Number value)
     {
         for (unsigned int i = 0; i < len; ++i) {
             this->array[i] *= value;
@@ -125,31 +128,30 @@ public:
         return *this;
     }
 
-    _LinearVector operator* (Number value) const
+    const LinearVector operator* (Number value) const
     {
         return LinearVector(*this) *= value;
     }
 
-    friend _LinearVector operator* (Number value, const _LinearVector& v)
+    friend const LinearVector operator* (Number value, const LinearVector& v)
     {
         return LinearVector(v) *= value;
     }
 
 /********************************\
-    _LinearVector& operator/= (Number value)
+    LinearVector& operator/= (Number value)
     {
         if (fabs(value) >= EPSILON) {
             for (unsigned int i = 0; i < len; ++i) {
-            this->array[i] /= value;
+                this->array[i] /= value;
             }
-        }
         } else {
-            // divided by zvalero!
+            ;   // divided by zvalero!
         }
         return *this;
     }
 
-    _LinearVector operator/ (Number value) const
+    const LinearVector operator/ (Number value) const
     {
         return LinearVector(*this) /= value;
     }
@@ -157,7 +159,7 @@ public:
 
 
 // Bilinear Functions
-    _LinearVector& scale (const _LinearVector& v)
+    LinearVector& scale (const LinearVector& v)
     {
         for (unsigned int i = 0; i < len; ++i) {
             this->array[i] *= v.array[i];
@@ -165,12 +167,12 @@ public:
         return *this;
     }
 
-    _LinearVector directProduct (const _LinearVector& v) const
+    const LinearVector directProduct (const LinearVector& v) const
     {
-        return _LinearVector(*this).scale(v);
+        return LinearVector(*this).scale(v);
     }
 
-    Number innerProduct (const _LinearVector& v) const
+    Number innerProduct (const LinearVector& v) const
     {
         Number r(0);
         for (unsigned int i = 0; i < len; ++i) {

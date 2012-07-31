@@ -23,32 +23,35 @@ class Line {
 * Line
 * Number should be float, double or sth...
 \**********************************/
-public:
+
     typedef Line<Number, n, _Vct, _Pnt> _Line;
 
-    Line (void) : p(), t()                  // Default Constructor
+public:
+    typedef Number  value_type;
+
+    Line (void) : p(), t()              // Default Constructor
     {
         ;   // no-op
     }
 /*
-    Line (const Number* ptr) : p(ptr), t(ptr + n)     // Constructor
+    Line (const Number* ptr) : p(ptr), t(ptr + n)   // Constructor
     {
         ;   // no-op
     }
 */
-    Line (const _Pnt& pv, const _Vct& tv) : p(pv), t(tv)     // Constructor
+    Line (const _Pnt& pv, const _Vct& tv) : p(pv), t(tv)    // Constructor
     {
         ;   // no-op
     }
 
     // Copy Constructor
-    Line (const _Line& l) : p(l.p), t(l.t)
+    Line (const Line& l) : p(l.p), t(l.t)
     {
         ;   // no-op
     }
 
     // Assignment Operator
-    _Line& operator= (const _Line& l)
+    Line& operator= (const Line& l)
     {
         if (&l != this) {
             this->p = l.p;
@@ -57,10 +60,16 @@ public:
         return *this;
     }
 
-    virtual ~Line () {}
+    /*virtual */~Line () {}
+
+    void setZero (void)
+    {
+        this->p.setZero();
+        return;
+    }
 
 
-    _Line& translate (const _Vct& vct)
+    Line& translate (const _Vct& vct)
     {
         this->p += vct;
         return *this;

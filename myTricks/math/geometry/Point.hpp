@@ -22,8 +22,11 @@ class Point {
 * Point
 * Number should be float, double or sth...
 \**********************************/
+
+    typedef Point<Number, n, _Vct>  _Point;
+
 public:
-    typedef Point<Number, n, _Vct> _Point;
+    typedef Number  value_type;
 
     Point (void) : pos()                    // Default Constructor
     {
@@ -41,19 +44,19 @@ public:
     }
 
     // Copy Constructor
-    Point (const _Point& p) : pos(p.pos)
+    Point (const Point& p) : pos(p.pos)
     {
         ;   // no-op
     }
 
     // Assignment Operator
-    _Point& operator= (const _Point& p)
+    Point& operator= (const Point& p)
     {
         if (&p != this) this->pos = p.pos;
         return *this;
     }
 
-    virtual ~Point () {}
+    /*!virtual */~Point () {}
 
     void setZero (void)
     {
@@ -62,39 +65,39 @@ public:
     }
 
 
-    _Point& operator+= (const _Vct& vct)
+    Point& operator+= (const _Vct& vct)
     {
         this->pos += vct;
         return *this;
     }
 
-    _Point& translate (const _Vct& vct)
+    Point& translate (const _Vct& vct)
     {
         return this->operator+=(vct);
     }
 
-    _Point operator+ (const _Vct& vct) const
+    const Point operator+ (const _Vct& vct) const
     {
-        return _Point(*this) += vct;
+        return Point(*this) += vct;
     }
 
-    _Point& operator-= (const _Vct& vct)
+    Point& operator-= (const _Vct& vct)
     {
         /*if (&vct != &this->pos) */this->pos -= vct;
         return *this;
     }
 
-    _Point operator- (const _Vct& vct) const
+    const Point operator- (const _Vct& vct) const
     {
-        return _Point(*this) -= vct;
+        return Point(*this) -= vct;
     }
 /*
-    _Point operator- (void) const
+    const Point operator- (void) const
     {
-        return _Point(-this->pos);
+        return Point(-this->pos);
     }
 */
-    _Vct operator- (const _Point& p) const
+    const _Vct operator- (const Point& p) const
     {
         return this->pos - p.pos;
     }

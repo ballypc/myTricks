@@ -8,78 +8,11 @@
 \**********************************************************************/
 
 
-# include "Point.hpp"
-# include "../vector/Vector_3D.hpp"
-
-namespace mytricks {
-
-namespace math {
-
-// 定义一个通用的3D点类
-template<typename Number>
-class Point3 : public Point<Number, 3, Vector3<Number> > {
-/**********************************\
-* Point3
-* Number should be float, double or sth...
-\**********************************/
-public:
-    typedef Point<Number, 3, Vector3<Number> > _P3Base;
-    typedef Point3<Number> _Point3;
-
-    typedef Vector3<Number> _Vector3;
-
-    Point3 (void) : _P3Base()                   // Default Constructor
-    {
-        ;   // no-op
-    }
-
-    Point3 (Number xv, Number yv, Number zv) : _P3Base(_Vector3(xv,yv,zv))    // 构造函数
-    {
-        ;   // no-op
-    }
-
-    Point3 (const Number* ptr) : _P3Base(ptr)   // Constructor
-    {
-        ;   // no-op
-    }
-
-    explicit Point3 (const _Vector3& vct) : _P3Base(vct)     // Constructor
-    {
-        ;   // no-op
-    }
-
-    // Copy Constructor
-    Point3 (const _P3Base& p) : _P3Base(p)
-    {
-        ;   // no-op
-    }
-/*
-    // Assignment Operator
-    _Point3& operator= (const _P3Base& v)
-    {
-        if (&v != this) this->Point.pos = v.pos;
-        return *this;
-    }
-*/
-//    virtual ~Point3 () {}
-    Number x(void) const {return this->_P3Base::pos.x();}       // get
-//    Number& x(void) {return this->xval;}
-    Number y(void) const {return this->_P3Base::pos.y();}       // get
-//    Number& y(void) {return this->yval;}
-    Number z(void) const {return this->_P3Base::pos.z();}       // get
-//    Number& z(void) {return this->zval;}
-    const Number *xyz(void) const {return this->_P3Base::pos.xyz();}    // get_ptr
-
-/*
-protected:
-    _Vector3 pos;               // Data Member
-*/
-
-}; // class Point3<Number>
-
-} // namespace math
-
-} // namespace mytricks
+# if (defined(_MSC_VER) && (_MSC_VER <= 1200))
+#  include "3D/Point_3D_DC.hpp"
+# else
+#  include "3D/Point_3D_CTPS.hpp"
+# endif
 
 
 #endif // _POINT_3D_HPP_INCLUDED_
